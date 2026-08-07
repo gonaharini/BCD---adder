@@ -1,0 +1,23 @@
+module bcd_adder(
+    input [3:0] A,
+    input [3:0] B,
+    input Cin,
+    output [3:0] Sum,
+    output Cout
+);
+
+wire [4:0] temp_sum;
+wire correction;
+wire [4:0] corrected_sum;
+
+assign temp_sum = A + B + Cin;
+
+// Correction needed if sum > 9
+assign correction = (temp_sum > 9);
+
+assign corrected_sum = correction ? (temp_sum + 6) : temp_sum;
+
+assign Sum = corrected_sum[3:0];
+assign Cout = correction;
+
+endmodule
